@@ -120,7 +120,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFc-W5-2LW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23.188405797101453" y="-152.44565217391306"/>
+            <point key="canvasLocation" x="-265" y="-391"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="g4D-zP-0oQ">
+            <objects>
+                <viewController id="jxa-x5-Kvu" customClass="ModifiedCalendarVCViewController" customModule="Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sNb-ai-s0A">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="DHe-mA-Rjp"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="EN5-6D-0pe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ka2-rp-Fm4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-265" y="289"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MHj-Rh-b5u">
@@ -133,6 +149,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="L9x-0C-3pH" kind="relationship" relationship="viewControllers" id="87n-HF-7fT"/>
+                        <segue destination="jxa-x5-Kvu" kind="relationship" relationship="viewControllers" id="UM2-C1-Fhl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a1n-cG-7jz" userLabel="First Responder" sceneMemberID="firstResponder"/>

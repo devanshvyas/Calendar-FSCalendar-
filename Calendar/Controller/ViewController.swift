@@ -16,6 +16,7 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate{
   @IBOutlet weak var tableViewOutlet: UITableView!
   
   //MARK: variables
+  static let shared = ViewController()
   var calendarData = [VisitModel]()
   lazy var panGesture: UIPanGestureRecognizer = {
     [unowned self] in
@@ -36,7 +37,7 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate{
   var colorDetail = [[String:UIColor]]()
   
   
-  //MARK: didLoad
+  //MARK: Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     tableViewOutlet.dataSource = self
@@ -54,7 +55,7 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate{
     obj1.description = "Blood Donation Time: 11:00 AM"
     obj1.title = "Donate blood at XYZ hospital"
     obj1.date =  "01/07/18"
-    obj1.attachments = #imageLiteral(resourceName: "blood-donate")
+    obj1.attachments = #imageLiteral(resourceName: "blood-drop")
     obj1.cellColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
     calendarData.append(obj1)
     
@@ -81,6 +82,18 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate{
     obj3.attachments = #imageLiteral(resourceName: "appointment")
     obj3.cellColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
     calendarData.append(obj3)
+    
+    let obj4 = VisitModel()
+    obj4.id = 4
+    obj4.doctorId = 4
+    obj4.patientId = 4
+    obj4.eventType = .bloodDonate
+    obj4.description = "Blood Donation Time: 11:00 AM"
+    obj4.title = "Donate blood at XYZ hospital"
+    obj4.date =  "21/07/18"
+    obj4.attachments = #imageLiteral(resourceName: "blood-drop")
+    obj4.cellColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+    calendarData.append(obj4)
   }
 }
 
