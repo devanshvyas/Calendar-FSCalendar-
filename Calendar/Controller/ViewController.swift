@@ -18,6 +18,7 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate{
   //MARK: variables
   static let shared = ViewController()
   var calendarData = [VisitModel]()
+  
   lazy var panGesture: UIPanGestureRecognizer = {
     [unowned self] in
     let gesture = UIPanGestureRecognizer(target: self.calendarOutlet, action: #selector(self.calendarOutlet.handleScopeGesture(_:)))
@@ -43,6 +44,7 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate{
     tableViewOutlet.dataSource = self
     tableViewOutlet.delegate = self
     data()
+    calendarOutlet.register(CustomCalendarCell.self, forCellReuseIdentifier: "cell")
     calendarOutlet.addGestureRecognizer(panGesture)
   }
   
@@ -117,17 +119,19 @@ extension ViewController: FSCalendarDataSource,FSCalendarDelegate,FSCalendarDele
     }
   }
   
-  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-    let dateString = dateFormatter.string(from: date)
-    for i in calendarData{
-      if i.date == dateString{
-        return i.cellColor
-      }
-    }
-    return nil
-  }
+  //MARK: to give color to pre-selected cells
+//  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+//    let dateString = dateFormatter.string(from: date)
+//    for i in calendarData{
+//      if i.date == dateString{
+//        return i.cellColor
+//      }
+//    }
+//    return nil
+//  }
   
-  func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
+  func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+    let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position) as? CustomCalendarCell
     let dateString = dateFormatter.string(from: date)
     var count = 0
     var img: UIImage?
@@ -136,23 +140,57 @@ extension ViewController: FSCalendarDataSource,FSCalendarDelegate,FSCalendarDele
         count = count+1
         img = i.attachments
       }
+      else{
+        cell?.bloodIcon.isHidden = true
+        cell?.checkIcon.isHidden = true
+      }
     }
     if count==2{
-      return #imageLiteral(resourceName: "two")
+      cell?.bloodIcon.image = #imageLiteral(resourceName: "two")
+      cell?.bloodIcon.isHidden = false
     }
     else if count == 3{
-      return #imageLiteral(resourceName: "three")
+      cell?.bloodIcon.image = #imageLiteral(resourceName: "three")
+      cell?.bloodIcon.isHidden = false
     }
     else if count == 4{
-      return #imageLiteral(resourceName: "four")
+      cell?.bloodIcon.image = #imageLiteral(resourceName: "four")
+      cell?.bloodIcon.isHidden = false
     }
     else if count == 4{
-      return #imageLiteral(resourceName: "five")
+      cell?.bloodIcon.image = #imageLiteral(resourceName: "five")
+      cell?.bloodIcon.isHidden = false
     }
     else{
       if let image = img{
-        return image
+        cell?.bloodIcon.image = image
+        cell?.bloodIcon.isHidden = false
       }
+    }
+    if count>=1{
+      cell?.checkIcon.isHidden = false
+    }
+    return cell!
+  }
+  
+  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
+    if dateFormatter.string(from: date) == dateFormatter.string(from: Date()){
+      return UIColor.purple
+    }
+    return nil
+  }
+  
+  //MARK: for square border
+//  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderRadiusFor date: Date) -> CGFloat {
+//    if dateFormatter.string(from: date) == dateFormatter.string(from: Date()){
+//      return 0.0 //Square
+//    }
+//    return 1.0 //Circle
+//  }
+  
+  func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+    if dateFormatter.string(from: date) == dateFormatter.string(from: Date()){
+      return #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 0.4246575342)
     }
     return nil
   }

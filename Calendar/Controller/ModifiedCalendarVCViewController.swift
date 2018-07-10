@@ -11,9 +11,7 @@ import UIKit
 class ModifiedCalendarVCViewController: UIViewController {
 
   let obj = ViewController.shared
-  
-  fileprivate let gregorian = Calendar(identifier: .gregorian)
-  
+    
   weak var modifiedCalendar: FSCalendar!
   weak var heightConstrains: NSLayoutConstraint!
   
